@@ -10,10 +10,16 @@ const env = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 
+//index route
+app.get("/", function(req,res){
+  res.render("index", {title: "Home"})
+})
+
 /* ***********************
  * Routes
  *************************/
 app.use(static)
+
 
 /* ***********************
  * Local Server Information
