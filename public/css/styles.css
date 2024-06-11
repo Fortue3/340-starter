@@ -4,3 +4,63 @@
 *:after {
   box-sizing: border-box;
 }
+/* Mobile-first styles */
+
+/* Apply basic styles to the body and HTML */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Position the header */
+header {
+  /* Add your positioning styles here */
+}
+
+/* Position the navigation */
+nav {
+  /* Add your positioning styles here */
+}
+
+/* Position the main content */
+main {
+  /* Add your positioning styles here */
+}
+
+/* Position the footer */
+footer {
+  /* Add your positioning styles here */
+}
+
+/* Styles for larger screens */
+@media (min-width: 768px) {
+  /* Adjust positioning styles for larger screens */
+}
+
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #f8f9fa;
+  /* Add more colors as needed */
+}
+
+body {
+  background-color: var(--background-color);
+}
+
+/* Apply colors to specific elements */
+a {
+  color: var(--primary-color);
+}
+
+/* Add more CSS rules to apply the color scheme */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Add more CSS rules to apply font families */
