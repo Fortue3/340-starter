@@ -1,66 +1,246 @@
-/******* Change Box Model ***************/
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
-/* Mobile-first styles */
-
-/* Apply basic styles to the body and HTML */
-body, html {
+* {
   margin: 0;
   padding: 0;
-}
-
-/* Position the header */
-header {
-  /* Add your positioning styles here */
-}
-
-/* Position the navigation */
-nav {
-  /* Add your positioning styles here */
-}
-
-/* Position the main content */
-main {
-  /* Add your positioning styles here */
-}
-
-/* Position the footer */
-footer {
-  /* Add your positioning styles here */
-}
-
-/* Styles for larger screens */
-@media (min-width: 768px) {
-  /* Adjust positioning styles for larger screens */
+  box-sizing: border-box;
 }
 
 :root {
   --primary-color: #007bff;
   --secondary-color: #6c757d;
-  --background-color: #f8f9fa;
-  /* Add more colors as needed */
-}
-
-body {
-  background-color: var(--background-color);
+  --background-color: #ffffff;
 }
 
 /* Apply colors to specific elements */
 a {
-  color: var(--primary-color);
+  color: #000;
+  text-decoration: none;
 }
 
-/* Add more CSS rules to apply the color scheme */
-
-body {
-  font-family: Arial, sans-serif;
+#top-header .siteName a {
+  font-size: 32px;
+  font-weight: bold;
 }
 
-h1, h2, h3 {
-  font-family: 'Roboto', sans-serif;
+#top-header #tools a {
+  font-size: 24px;
 }
 
-/* Add more CSS rules to apply font families */
+#wrapper {
+  background-color: var(--background-color);
+  width: 100%;
+  margin: 10px auto;
+  padding: 20px;
+
+}
+
+#wrapper header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+#wrapper nav {
+  background-color: #000;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: var(--background-color);
+}
+
+#wrapper nav ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  padding: 5px 10%;
+}
+
+.delorean-section {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  width: 700px;
+}
+
+.delorean-section img {
+  margin-left: -10%;
+}
+
+.delorean-info {
+  margin-left: 1%;
+  z-index: 2;
+  color: #00aaff;
+  background-color: #ffffff6f;
+  padding: 10px;
+}
+
+.delorean-info h3 {
+  color: #00aaff;
+}
+
+.delorean-info p {
+  line-height: 1.5;
+}
+
+.delorean-info button {
+  background: #00aaff;
+  color: #000;
+  font-weight: 700;
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+
+}
+
+.delorean-info button:hover {
+  background: #0088cc;
+}
+
+.info-sections {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap-reverse;
+  margin-top: 20px;
+}
+
+.upgrades, .reviews {
+  width: 45%;
+  margin: 5px 20px;
+}
+
+.reviews ul {
+  padding: 20px;
+}
+
+.upgrades {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.upgrades h3, .reviews h3 {
+  width: 100%;
+}
+
+.upgrade-item {
+  margin: 10px 0;
+  min-width: 100px;
+  text-align: center;
+  
+}
+
+.upgrade-item .upgrade-img {
+  margin-top: 10px;
+  background-color:#0088cc;
+}
+
+.upgrade-item img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.upgrade-item a {
+  text-decoration: none;
+  color: #333;
+}
+
+footer {
+  text-align: left;
+  padding: 10px 0;
+  color: #333;
+  margin-top: 20px;
+}
+
+
+@media (min-width: 768px) {
+  /* Adjust positioning styles for larger screens */
+  body {
+      background-image: url(images/site/small_check.jpg);
+  }
+  
+  #wrapper {
+      background-color: var(--background-color);
+      border: 3px solid var(--primary-color);
+      border-radius: 10px;
+      width: 80%;
+  
+  }
+  
+  #wrapper nav ul {
+      padding: 5px 15%;
+  }
+  
+  main {
+      padding: 20px;
+  }
+
+  .delorean-section {
+      width: 1000px;
+  }
+  
+  .delorean-section img {
+      margin-left: -9%;
+  }
+  
+  .delorean-info {
+      margin-left: 20%;
+  }
+  
+  .delorean-info button:hover {
+      background: #0088cc;
+  }
+  
+  .info-sections {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+  }
+  
+  .upgrades, .reviews {
+      width: 45%;
+  }
+  
+  .upgrades {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin: auto;
+  }
+  
+  .upgrades h3, .reviews h3 {
+      width: 100%;
+  }
+  
+  .upgrade-item {
+      margin: 10px 0;
+      min-width: 200px;
+      text-align: center;
+      
+  }
+  
+  .upgrade-item .upgrade-img {
+      margin-top: 10px;
+      background-color:#0088cc;
+  }
+  
+  .upgrade-item img {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      text-align: center;
+  }
+  
+  .upgrade-item a {
+      text-decoration: none;
+      color: #333;
+  }
+  
+  footer {
+      text-align: left;
+      padding: 10px 0;
+      color: #333;
+      margin-top: 20px;
+  }
+}
