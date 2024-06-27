@@ -10,6 +10,7 @@ const expressLayouts = require("express-ejs-layouts")
 const dotenv = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
+const baseController = require("./controllers/baseController")
 
 
 /* ***********************
@@ -33,6 +34,7 @@ app.set("layout", "./layouts/layout") // not at views root
 app.get("/", (req,res) =>{
   res.render("index", {title: "Home"})
    })
+   
 
 
 /* ***********************
