@@ -11,6 +11,8 @@ const dotenv = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
+// Require the inventory route file
+const inventoryRoute = require('./routes/inventoryRoute');
 
 
 /* ***********************
@@ -35,6 +37,12 @@ app.get("/", (req,res) =>{
   res.render("index", {title: "Home"})
    })
    
+   app.get('/', function(req, res) {
+    res.render('layout', { nav: 'Navigation content here' });
+  });
+
+  // Inventory routes
+app.use("/inv", inventoryRoute)
 
 
 /* ***********************
