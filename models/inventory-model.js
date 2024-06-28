@@ -1,5 +1,5 @@
 const pool = require("../database/")
-
+const inventoryData = require('../database/inventoryData');
 /* ***************************
  *  Get all classification data
  * ************************** */
@@ -11,7 +11,7 @@ async function getClassifications(){
     catch (error){
       console.log( "The query is not found" + "getClassifications")
     }
-  }
+  };
  
 
 
@@ -32,6 +32,12 @@ async function getInventoryByClassificationId(classification_id) {
   } catch (error) {
     console.error("getclassificationsbyid error " + error)
   }
-}
+};
+
+exports.getVehicleById = (inventoryId) => {
+  // Query the inventory data source to find the vehicle with the given ID
+  const vehicle = inventoryData.find((item) => item.id === inventoryId);
+  return vehicle;
+};
 
 module.exports = {getClassifications, getInventoryByClassificationId};

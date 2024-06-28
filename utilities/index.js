@@ -66,4 +66,26 @@ Util.buildClassificationGrid = async function(data){
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
 
+
+// utilities/index.js
+exports.wrapVehicleDataInHTML = (vehicle) => {
+  // Generate HTML using the vehicle data
+  const html = `
+    <div class="vehicle-detail">
+      <h1>${vehicle.inv_make} ${vehicle.inv_model}</h1>
+      <img src="${vehicle.inv_image}" alt="${vehicle.inv_make} ${vehicle.inv_model}">
+      <p>Make: ${vehicle.inv_make}</p>
+      <p>Model: ${vehicle.inv_model}</p>
+      <p>Year: ${vehicle.inv_year}</p>
+      <p>Description: ${vehicle.inv_description}</p>
+      <p>Image: ${vehicle.inv_image}</p>
+      <p>Thumbnail: ${vehicle.inv_thumbnail}</p>
+      <p>Price: $${utilities.formatCurrency(vehicle.inv_price)}</p>
+      <p>Mileage: ${utilities.formatNumberWithCommas(vehicle.inv_mileage)}</p>
+      <p>Clasification_id: ${vehicle.classification_id}</p>
+      <!-- Add more descriptive data here -->
+    </div>
+  `;
+  return html;
+};
 module.exports = Util

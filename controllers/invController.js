@@ -17,6 +17,15 @@ invCont.buildByClassificationId = async function (req, res, next) {
     nav,
     grid,
   })
-}
+};
 
+exports.getInventoryItem = (req, res) => {
+  const inventoryId = req.params.id;
+
+  // Retrieve the specific vehicle's information from the inventory model
+  const vehicle = invModel.getVehicleById(inventoryId);
+
+  // Render the view and pass the vehicle data
+  res.render('inventory/detail', { vehicle });
+};
 module.exports = invCont
