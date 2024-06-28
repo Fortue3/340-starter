@@ -51,6 +51,10 @@ a {
   list-style: none;
   justify-content: space-between;
   padding: 5px 10%;
+  color: var(--background-color);
+}
+#wrapper nav ul li a {
+  color: var(--background-color);
 }
 
 .delorean-section {

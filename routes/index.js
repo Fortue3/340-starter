@@ -1,6 +1,13 @@
 const baseController = require("../controllers/baseController");
+const utilities = require("../utilities/");
+const router = require("express").Router()
+const inventoryRoute = require("./inventoryRoute");
+
+
 
 //index route
-application.get("/", baseController.buildHome)
+router.get("/", utilities.handleErrors(baseController.buildHome));
 // Inventory routes
-app.use("/inv", inventoryRoute)
+router.use("/inv", inventoryRoute);
+
+module.exports = router;
