@@ -83,11 +83,9 @@ invCont.buildAddInventory = async function(req, res, next){
 
 
 
-// Controller function to add a new vehicle to inventory
+
 invCont.addVehicle = async function(req, res, next){
-  // Getting navigation data
   let nav = await utilities.getNav();
-  // Extracting vehicle details from request body
   const {
       classification_id, 
       inv_make,
@@ -100,7 +98,7 @@ invCont.addVehicle = async function(req, res, next){
       inv_miles, 
       inv_color
   } = req.body;
-  // Adding new vehicle to inventory
+
   const newVehicle = await invModel.addVehicle(
       classification_id,
       inv_make, 
@@ -114,17 +112,15 @@ invCont.addVehicle = async function(req, res, next){
       inv_color,
   );
   
-  // Handling success or failure of adding vehicle
+  
   if (newVehicle) {
-      // Redirecting to management page if successful
       req.flash("notice", `${inv_make} ${inv_model} has been added.`);
       res.redirect("./");
   } else {
-      // Rendering add inventory view with error if failed
       req.flash("notice", "Vehicle not added, try again");
       res.status(501).render("inventory/add-inventory", {
-          title: "Add New Vehicle", // Title of the page
-          nav, // Navigation data
+          title: "Add New Vehicle", 
+          nav, 
       });
   }
 }
