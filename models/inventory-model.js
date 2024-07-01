@@ -1,18 +1,6 @@
 const pool = require("../database/")
-const inventoryData = require('../database/inventoryData');
-/* ***************************
- *  Get all classification data
- * ************************** */
-async function getClassifications(){
-  try{
-    const data = await pool.query("SELECT * FROM public.classification ORDER BY classification_name");
-    return data;
-  }
-    catch (error){
-      console.log( "The query is not found" + "getClassifications")
-    }
-  };
- 
+
+
 
 
 /* ***************************
@@ -33,6 +21,19 @@ async function getInventoryByClassificationId(classification_id) {
     console.error("getclassificationsbyid error " + error)
   }
 };
+/* ***************************
+ *  Get all classification data
+ * ************************** */
+async function getClassifications(){
+  try{
+    return await pool.query("SELECT * FROM public.classification ORDER BY classification_name");
+    
+  }
+    catch (error){
+      console.log("getClassifications error" + error);
+    }
+  };
+ 
 
 exports.getVehicleById = (inventoryId) => {
   // Query the inventory data source to find the vehicle with the given ID
@@ -40,4 +41,6 @@ exports.getVehicleById = (inventoryId) => {
   return vehicle;
 };
 
-module.exports = {getClassifications, getInventoryByClassificationId};
+module.exports = {getClassifications,
+   getInventoryByClassificationId,
+ };

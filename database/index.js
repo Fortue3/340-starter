@@ -13,7 +13,7 @@ if (process.env.NODE_ENV == "development") {
     ssl: {
       rejectUnauthorized: false,
     },
-})
+});
 
 // Added for troubleshooting queries
 // during development
@@ -33,5 +33,5 @@ module.exports = {
   pool = new Pool({
     connectionString: process.env.Databse_URL,
   })
-  module.exports = pool
+  module.exports = pool;
 }

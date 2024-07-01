@@ -11,6 +11,7 @@ const dotenv = require("dotenv").config()
 const app = express()
 const static = require("./routes/static")
 const baseController = require("./controllers/baseController")
+const pool = require('./database/')
 // Require the inventory route file
 const inventoryRoute = require('./routes/inventoryRoute');
 const utilities = require('./utilities/');
@@ -24,14 +25,20 @@ app.set("view engine", "ejs")
 app.use(expressLayouts)
 app.set("layout", "./layouts/layout") // not at views root
 
+
+const auth = (req, res, next) => {
+  if (res.locals.accountData && (res.locals.accountData.account_type === "Employee" || res.locals.accountData.account_type === "Admin")) {   // If account type is allowed, proceed to the next middleware or route
+    next();
+  } else {
+  
+    res.redirect("account/login")
+  }
+};
+
 /* ***********************
  * Routes
  *************************/
-app.use(static)
-app.set("view engine", "ejs")
-app.use(expressLayouts)
-app.set("layout", "./layouts/layout") // not at views root
-// File Not Found Route - must be last route in list
+app.use(static);
 
 
 app.use("/", router)
@@ -66,8 +73,19 @@ app.get('/', function(req, res) {
 
 
   // Index route
-app.get("/", utilities.handleErrors(baseController.buildHome))
+app.get("/", utilities.handleErrors(baseController.buildHome));
 
+
+app.use(async (err, req, res, next) => {
+  let nav = await utilities.getNav()
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
+  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  res.render("errors/error", {
+    title: err.status || 'Server Error',
+    message,
+    nav
+  })
+})
 
 
 /* ***********************
