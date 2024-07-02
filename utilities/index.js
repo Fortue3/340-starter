@@ -9,7 +9,7 @@ Util.getNav = async function (req, res, next) {
  console.log(data);
   let list = "<ul>";
   list += '<li><a href="/" title="Home page">Home</a></li>';
-  data.rows.forEach((row) => {
+  data.forEach((row) => {
     list += "<li>"
     list +=
       '<a href="/inv/type/' +
