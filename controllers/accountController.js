@@ -1,5 +1,6 @@
 // controllers/accountController.js
-
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 const utilities = require('../utilities/index');
 const bcrypt = require("bcryptjs");
 
@@ -60,17 +61,68 @@ async function registerAccount(req, res) {
 
 
 // Hash the password before storing
+
+  // regular password and cost (salt is generated automatically)
+  
+//   hashedPassword = await bcrypt.hashSync(account_password, 10)
+// } catch (error) {
+//   req.flash("notice", 'Sorry, there was an error processing the registration.')
+//   res.status(500).render("account/register", {
+//     title: "Registration",
+//     nav,
+//     errors: null,
+//   })
+// }
 let hashedPassword
 try {
-  // regular password and cost (salt is generated automatically)
-  hashedPassword = await bcrypt.hashSync(account_password, 10)
-} catch (error) {
-  req.flash("notice", 'Sorry, there was an error processing the registration.')
-  res.status(500).render("account/register", {
-    title: "Registration",
+bcrypt.hashSync(account_password, 10)
+  .then((hashedPassword) => {
+    account_password, 10
+    // Use the hashed password here
+  })
+
+  .catch ((error) => {
+    req.flash("notice", 'error in processing the registration.')
+    res.status(500).render("account/register", {
+      title: "Registration",
+      nav,
+      errors: null,
+    }) 
+  });
+
+/* ****************************************
+ *  Process login request
+ * ************************************ */
+async function accountLogin(req, res) {
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (!accountData) {
+   req.flash("notice", "Please check your credentials and try again.")
+   res.status(400).render("account/login", {
+    title: "Login",
     nav,
     errors: null,
-  })
-}
-
-module.exports = { buildLogin, buildRegister };
+    account_email,
+   })
+  return
+  }
+  try {
+   if (await bcrypt.compare(account_password, accountData.account_password)) {
+   delete accountData.account_password
+   const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
+   if(process.env.NODE_ENV === 'development') {
+     res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000 })
+     } else {
+       res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+     }
+   return res.redirect("/account/")
+   }
+  } catch (error) {
+   return new Error('Access Forbidden')
+  }
+ }
+module.exports = {
+   buildLogin, 
+  buildRegister 
+};

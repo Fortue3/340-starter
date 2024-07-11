@@ -137,6 +137,8 @@ invCont.getInventoryJSON = async (req, res, next) => {
   }
 };
 
+
+
 //exports.getInventoryItem  = (req, res) => {
   //const inventoryId = req.params.id;
 

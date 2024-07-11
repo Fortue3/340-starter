@@ -22,12 +22,19 @@ router.get("/",
         );
 
         // Process the login attempt
+// router.post(
+//         "/login",
+//         (req, res) => {
+//           res.status(200).send('login process')
+//         }
+//       );
+      // Process the login request
 router.post(
-        "/login",
-        (req, res) => {
-          res.status(200).send('login process')
-        }
-      );
+  "/login",
+  regValidate.loginRules(),
+  regValidate.checkLoginData,
+  utilities.handleErrors(accountController.accountLogin)
+)
 
 
 
