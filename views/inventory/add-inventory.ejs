@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include('../partials/head') %>
-<!--This will show three distint sections:
- A Content heading, 
- a message and the Inventory Items Display. -->
 
 <% if (title) { %>
-  <h2>
+  <h1>
     <%= title %>
-  </h2>
+  </h1>
   <% } else { res.redirect('/') } %>
 
     <%# messages() %>

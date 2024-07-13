@@ -10,7 +10,15 @@
         <%= title %>
     </h1>
     <% } else { res.redirect('/') } %>
-
+    
+     
+  <% if (errors) { %>
+    <ul class="notice">
+<% errors.array().forEach(error => { %>
+<li><%= error.msg %></li>
+<%  }) %>
+</ul>
+<% } %>
 
 
         <form id="management_form" action="/inv/add-classification" method="post">
