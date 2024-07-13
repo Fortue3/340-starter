@@ -1,250 +1,333 @@
-* {
-  margin: 0;
-  padding: 0;
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --background-color: #ffffff;
+/* Mobile First Styles */
+body {
+
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+  background-image: url('/images/site/small_check.jpg');
+  background-repeat: no-repeat;
+  /* Prevent image repetition */
 }
 
-/* Apply colors to specific elements */
-a {
-  color: #000;
+.home-link h1 {
+  margin: 0;
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  background-color: #333;
+  color: #fff;
+  width: 99%;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+
+ul {
+  list-style-type: none;
+  /* Remove default list styling */
+}
+
+nav ul {
+  display: flex;
+  /* Use flexbox for layout */
+  justify-content: space-between;
+  /* Space items evenly */
+  background-color: #333;
+  /* Background color for the navigation bar */
+  width: 100%;
+}
+
+
+nav li {
+  margin: 0 1rem;
+}
+
+nav li a {
+  color: #fff;
   text-decoration: none;
 }
 
-#top-header .siteName a {
-  font-size: 32px;
-  font-weight: bold;
+nav a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-#top-header #tools a {
-  font-size: 24px;
+nav .active {
+  background-color: rgb(0, 0, 0, 0.2);
 }
 
-#wrapper {
-  background-color: var(--background-color);
+/* Larger Screen Styles */
+@media (min-width: 768px) {
+  .navbar-links li {
+    margin: 0 2rem;
+  }
+}
+
+.wrapper {
+  background-color: white;
+  padding-left: 10px;
+  margin-top: 30px;
+  margin-left: 55px;
+  margin-right: 55px;
+  border: 5px solid rgb(9, 216, 231);
+  border-radius: 10px;
+}
+
+.deloran {
   width: 100%;
-  margin: 10px auto;
+}
+
+
+.advert {
+
+  background-color: rgba(228, 235, 235, 0.849);
   padding: 20px;
-
+  color: rgb(8, 114, 114);
+  width: 140px;
+  position: absolute;
+  /* Adjust top, right, bottom, left as needed */
+  z-index: 1;
+  /* Control layering */
 }
 
-#wrapper header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-#wrapper nav {
-  background-color: #000;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: var(--background-color);
-}
-
-#wrapper nav ul {
-  display: flex;
-  list-style: none;
-  justify-content: space-between;
-  padding: 5px 10%;
-  color: var(--background-color);
-}
-#wrapper nav ul li a {
-  color: var(--background-color);
-}
-
-.delorean-section {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  text-align: center;
-  width: 700px;
-}
-
-.delorean-section img {
-  margin-left: -10%;
-}
-
-.delorean-info {
-  margin-left: 1%;
-  z-index: 2;
-  color: #00aaff;
-  background-color: #ffffff6f;
+.advert a {
   padding: 10px;
-}
+  background-color: rgb(45, 215, 221);
+  border-radius: 10px;
+  color: black;
+  list-style: none;
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+  font-style: normal;
 
-.delorean-info h3 {
-  color: #00aaff;
-}
-
-.delorean-info p {
-  line-height: 1.5;
-}
-
-.delorean-info button {
-  background: #00aaff;
-  color: #000;
-  font-weight: 700;
-  border: none;
-  padding: 5px 5px;
-  cursor: pointer;
 
 }
 
-.delorean-info button:hover {
-  background: #0088cc;
-}
 
-.info-sections {
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap-reverse;
-  margin-top: 20px;
-}
-
-.upgrades, .reviews {
-  width: 45%;
-  margin: 5px 20px;
-}
-
-.reviews ul {
-  padding: 20px;
-}
-
-.upgrades {
+header {
+  position: relative;
+  top: 30px;
+  padding-left: 80px;
+  padding-right: 80px;
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  margin: 5px;
 }
 
-.upgrades h3, .reviews h3 {
-  width: 100%;
+.intro {
+  display: grid;
+  place-items: center;
 }
+
+.upgrades,
+.reviews {
+  padding: 1rem;
+  text-align: center;
+}
+
+.upgrades h3,
+.reviews h3 {
+  margin-top: 0;
+}
+
+h2 {
+  padding-left: 100px;
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
 
 .upgrade-item {
-  margin: 10px 0;
-  min-width: 100px;
-  text-align: center;
-  
-}
-
-.upgrade-item .upgrade-img {
-  margin-top: 10px;
-  background-color:#0088cc;
+  display: inline-block;
+  width: 100px;
+  margin: 2%;
+  padding: 1rem;
+  background-color: #f4f4f4;
+  border-radius: 5px;
 }
 
 .upgrade-item img {
-  width: 50px;
-  height: 50px;
-  margin-right: 10px;
-  text-align: center;
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 0.5rem;
 }
 
-.upgrade-item a {
-  text-decoration: none;
-  color: #333;
+
+.upgrades {
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two equal-width sub-columns */
 }
+
 
 footer {
-  text-align: left;
-  padding: 10px 0;
-  color: #333;
-  margin-top: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  display: grid;
+  place-items: center;
+  position: relative;
+  top: 30px;
+  width: 86%;
+  margin-left: 7%;
+  border-radius: 10px;
 }
 
 
-@media (min-width: 768px) {
-  /* Adjust positioning styles for larger screens */
-  body {
-      background-image: url(images/site/small_check.jpg);
-  }
-  
-  #wrapper {
-      background-color: var(--background-color);
-      border: 3px solid var(--primary-color);
-      border-radius: 10px;
-      width: 80%;
-  
-  }
-  
-  #wrapper nav ul {
-      padding: 5px 15%;
-  }
-  
-  main {
-      padding: 20px;
+
+#MainContent {
+  background-image: url('image-url');
+  background-size: cover;
+  background-position: center;
+}
+
+/* styles.css */
+.veh-display {
+  /* Add styles for the entire vehicle display container */
+  /* For example: */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two equal-width sub-columns */
+
+}
+
+.vehicle-name {
+  margin-right: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* Two equal-width sub-columns */
+}
+
+.vehicle-mp {
+  display: grid;  
+  /* Two equal-width sub-columns */
+}
+
+
+
+.vehicle-image {
+  /* Add styles for the vehicle image */
+  /* For example: */
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+.vehicle-info {
+  /* Add styles for the vehicle information section */
+  /* For example: */
+  font-size: 16px;
+  color: #333;
+
+}
+
+
+.vehicle-buttons {
+
+  display: block;
+  background-color: rgba(0, 17, 17, 0.164);
+  color: white;
+  width: 100px;
+}
+
+.vehicle-buttons :hover {
+  background-color: green;
+}
+.vehicle-mp{
+  padding-left: 10px;
+  background-color: rgba(0, 17, 17, 0.164);
+  width: 110px;
+}
+h5{
+  background-color: #ffffff;
+  width: 60px;
+}
+.estimate{
+  margin-top: -50px;
+  padding-left: 220px;
+  color: green;
+}
+.divine{
+  margin: 200px;
+  display: inline-block;
+  width: 250px;
+  margin: 2%;
+  padding: 1rem;
+  color: #a80808;
+  border-radius: 5px; 
+}
+
+.vehicle-detail{
+  margin: 50px;
+}
+/* Mobile View ***************/
+#menu {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  text-decoration: none;
+  padding: .5rem .75rem;
+  color: rgb(0, 0, 0, 0.3);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+form {
+  padding-left: 100px;
+
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+}
+
+#menu::before {
+  content: "≡";
+}
+
+
+nav li {
+  display: none;
+}
+
+.show li {
+  display: block;
+}
+
+#menu.show::before {
+  content: "❌";
+}
+
+/* Media Query for wider than mobile viewports. Breakpoint should be based upon the design and content and use em units to be relative to the user's font size versus fixed with pixels.*/
+@media only screen and (min-width: 40em) {
+  nav {
+    display: flex;
   }
 
-  .delorean-section {
-      width: 1000px;
+  nav li {
+    display: block;
+    /* change state in small view */
+    flex: 1 1 100%;
   }
-  
-  .delorean-section img {
-      margin-left: -9%;
+
+  nav a {
+    text-align: center;
   }
-  
-  .delorean-info {
-      margin-left: 20%;
-  }
-  
-  .delorean-info button:hover {
-      background: #0088cc;
-  }
-  
-  .info-sections {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 20px;
-  }
-  
-  .upgrades, .reviews {
-      width: 45%;
-  }
-  
-  .upgrades {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      margin: auto;
-  }
-  
-  .upgrades h3, .reviews h3 {
-      width: 100%;
-  }
-  
-  .upgrade-item {
-      margin: 10px 0;
-      min-width: 200px;
-      text-align: center;
-      
-  }
-  
-  .upgrade-item .upgrade-img {
-      margin-top: 10px;
-      background-color:#0088cc;
-  }
-  
-  .upgrade-item img {
-      width: 50px;
-      height: 50px;
-      margin-right: 10px;
-      text-align: center;
-  }
-  
-  .upgrade-item a {
-      text-decoration: none;
-      color: #333;
-  }
-  
-  footer {
-      text-align: left;
-      padding: 10px 0;
-      color: #333;
-      margin-top: 20px;
+
+  #menu {
+    display: none;
   }
 }

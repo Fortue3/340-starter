@@ -1,9 +1,19 @@
-<% if (title) {%>
-    <h1><%= title %></h1>
-    <% } else{ 
-        res.redirect("/")
-    }%>
-    
-    <%- messages() %>
-    
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/head') %>
+<!--This will show three distint sections:
+ A Content heading, 
+ a message and the Inventory Items Display. -->
+
+<% if (title) { %>
+  <h2>
+    <%= title %>
+  </h2>
+  <div>
+  <% } else { res.redirect('/') } %>
+
+
+
     <%- grid %>
+  </div>
+</html>

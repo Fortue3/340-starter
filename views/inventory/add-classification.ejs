@@ -1,21 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head') %>
+<!--This will show three distint sections:
+ A Content heading, 
+ a message and the Inventory Items Display. -->
 
-    <% if (title){ %>
-      <h1><%= title %></h1>
-      <% }else{
-      res.redirect("/")
-      }%>
-  
-  <%- messages() %>
-  
-  <% if (errors) { %>
-      <ul class="notice">
-  <% errors.array().forEach(error => { %>
-  <li><%= error.msg %></li>
-  <%  }) %>
-  </ul>
-  <% } %>
-  <form action="/inv/add-classification" id="newClassificationForm" method="post">
-      <h3>Classification Name</h3>
-      <label>NAME MUST BE ALPHABETIC CHARACTERS ONLY<input type="text" name="classificationName" value="<%- value %>" pattern="^[a-zA-Z]*$" required></label>
-      <button type="submit">Add Classification</button>
-  </form>
+<% if (title) { %>
+    <h1>
+        <%= title %>
+    </h1>
+    <% } else { res.redirect('/') } %>
+
+
+
+        <form id="management_form" action="/inv/add-classification" method="post">
+            <fieldset>
+               
+                <p>Field is required</p>
+                <label class="management-label">Classification Name<input type="text" name="classification_name"
+                        id="classificationName" required pattern="[a-zA-Z]+"
+                        value="<%= locals.classification_name %>"></label>
+                <span>Name must be alphabetic characters only</span>
+                <button type="submit">Add New Classification</button>
+            </fieldset>
+        </form>
+
+</html>

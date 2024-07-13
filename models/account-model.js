@@ -1,163 +1,67 @@
-const pool = require("../database/"); // Importing the database pool
+const express = require('express');
+const router = express.Router();
+const utilities = require('../utilities/');
 
-// Function to register an account in the database
-async function registerAccount(account_firstname, account_lastname, account_email, account_password){
-    try {
-        // SQL query to insert account details into the database
-        const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
-    
-        return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
-    } catch (error) {
-        // Returning error message if registration fails
-        return error.message
-    }
+router.get('/', utilities.handleErrors(buildLogin));
+
+
+/* ****************************************
+ * Deliver login view
+ * *************************************** */
+async function buildLogin(req, res, next) {
+  let nav = await utilities.getNav(); // Assuming you have a function to get navigation data
+  res.render('account/login', {
+    title: 'Login',
+    nav,
+  });
 }
+/* *****************************
+*   Register new account
+* *************************** */
+async function registerAccount(account_firstname, account_lastname, account_email, account_password){
+  try {
+    const sql = "INSERT INTO account (account_firstname, account_lastname, account_email, account_password, account_type) VALUES ($1, $2, $3, $4, 'Client') RETURNING *"
+    return await pool.query(sql, [account_firstname, account_lastname, account_email, account_password])
+  } catch (error) {
+    return error.message
+  }
+}
+
 
 /* **********************
  *   Check for existing email
  * ********************* */
-async function checkExistingEmail(account_email){
-    try {
-        const sql = "SELECT * FROM account WHERE account_email = $1"
-        const email = await pool.query(sql, [account_email])
-        return email.rowCount
-    } catch (error) {
-        return error.message
-    }
-};
-
-
-/* *****************************
- * Return account data using email address
- * ***************************** */
-async function getAccountByEmail (account_email) {
-    try {
-        // SQL query to retrieve account data based on email
-        const result = await pool.query(
-            'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
-            [account_email])
-        return result.rows[0] 
-    } catch (error) {
-        return new Error("No matching email found")
-    }
+async function checkExistingEmail(account_email) {
+  try {
+    const sql = "SELECT * FROM account WHERE account_email = $1"
+    const email = await pool.query(sql, [account_email])
+    return email.rowCount
+  } catch (error) {
+    return error.message
+  }
 }
+module.exports = router;
+const pool = require("../database/")
 
-
-async function checkExistingPassword(account_email){
-    try {
-        // SQL query to check if the password exists in the database
-        const sql = "SELECT * FROM account WHERE account_password = $1"
-        const password = await pool.query(sql, [account_email])
-        return password.rowCount
-    } catch (error) {
-        return error.message
-    }
-}
 
 /* ***************************
- *  Update Inventory Data
+ *  Get all inventory items and classification_name by classification_id
  * ************************** */
-async function updateAccount(
-    account_firstname, 
-    account_lastname, 
-    account_email,
-    account_id,
-  ) {
-    try {
-      const sql =
-        "UPDATE public.account SET account_firstname = $1, account_lastname = $2, account_email = $3 WHERE account_id = $4 RETURNING *";
-      const data = await pool.query(sql, [
-        account_firstname, 
-        account_lastname, 
-        account_email,
-        account_id,
-      ]);
-      return data.rows[0];
-    } catch (error) {
-      console.error("updateAccount error: " + error);
-    }
-  }
-async function updatePassword(
-    account_password,
-    account_id,
-  ) {
-    try {
-      const sql =
-        "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *";
-      const data = await pool.query(sql, [
-        account_password,
-        account_id,
-      ]);
-      return data.rows[0];
-    } catch (error) {
-      console.error("updateAccount error: " + error);
-    }
-  }
-
-  async function getAccountByID(account_id){
-    try {
-        const sql = "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM public.account WHERE account_id = $1 RETURNING *"
-        const account = await pool.query(sql, [account_id])
-        return account.rows[0]
-    } catch (error) {
-        return error.message
-    }
-}
-
-async function getInventoryByReview(account_id){
-  try{
-    const sql = `SELECT iv.inv_id, review_id, inv_year, inv_make, inv_model, review_date FROM public.review AS rv JOIN public.inventory AS iv 
-    ON rv.inv_id = iv.inv_id WHERE rv.account_id = $1`;
-    const data = await pool.query(sql, [account_id]);
-    return data.rows;
-  }catch(error){
-      return error.message;
-  }
-}
-
-async function getReview(account_id, inv_id){
-  try{
-    const sql = `SELECT review_id, account_id, review_date, review_text, inv_year, inv_make, inv_model
-                  FROM public.review AS rv JOIN public.inventory AS iv 
-                  ON rv.inv_id = iv.inv_id WHERE account_id = $1 AND iv.inv_id = $2`
-    const data = await pool.query(sql, [account_id, inv_id]);
-    return data.rows;
-  }catch(error){
-    new Error(`getReview model ${error}`);
-  }
-}
-
-async function UpdateReview(review_text, review_date, review_id){
+async function getInventoryByClassificationId(classification_id) {
   try {
-      const sql = `UPDATE public.review SET review_text = $1, review_date = $2 WHERE review_id = $3 RETURNING *`
-      const data = await pool.query(sql, [review_text, review_date, review_id]);
-      return data.rows[0];
+    const data = await pool.query(
+      `SELECT * FROM public.inventory AS i 
+      JOIN public.classification AS c 
+      ON i.classification_id = c.classification_id 
+      WHERE i.classification_id = $1`,
+    
+      [classification_id]
+    )
+    return data.rows
   } catch (error) {
-    new Error(`error in the query UpdateReview ${error}`)
-  }
-}
-async function deleteReview(review_id){
-  try {
-      const sql = `DELETE FROM public.review WHERE review_id = $1 RETURNING *`
-      const data = await pool.query(sql, [review_id]);
-      return data.rows[0];
-  } catch (error) {
-    new Error(`error in the query UpdateReview ${error}`)
+    console.error("getclassificationsbyid error " + error)
   }
 }
 
 
-
-module.exports = {
-  registerAccount, 
-  getAccountByEmail,
-  checkExistingEmail, 
-  checkExistingPassword, 
-  updateAccount,
-  updatePassword,
-  getAccountByID,
-  getInventoryByReview,
-  getReview,
-  UpdateReview,
-  deleteReview,
-}
+module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById };
