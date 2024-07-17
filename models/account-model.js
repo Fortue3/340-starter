@@ -1,3 +1,5 @@
+const pool = require("../database/")
+
 const express = require('express');
 const router = express.Router();
 const utilities = require('../utilities/');
@@ -15,6 +17,7 @@ async function buildLogin(req, res, next) {
     nav,
   });
 }
+
 /* *****************************
 *   Register new account
 * *************************** */
@@ -26,8 +29,6 @@ async function registerAccount(account_firstname, account_lastname, account_emai
     return error.message
   }
 }
-
-
 /* **********************
  *   Check for existing email
  * ********************* */
@@ -40,8 +41,8 @@ async function checkExistingEmail(account_email) {
     return error.message
   }
 }
-module.exports = router;
-const pool = require("../database/")
+
+
 
 
 /* ***************************
@@ -63,5 +64,18 @@ async function getInventoryByClassificationId(classification_id) {
   }
 }
 
-
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById };
+/* *****************************
+* Return account data using email address
+* ***************************** */
+async function getAccountByEmail (account_email) {
+  try {
+    const result = await pool.query(
+      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
+      [account_email])
+    return result.rows[0]
+  } catch (error) {
+    return new Error("No matching email found")
+  }
+}
+module.exports = { registerAccount, checkExistingEmail, getInventoryByClassificationId, getAccountByEmail }
+module.exports = router;
