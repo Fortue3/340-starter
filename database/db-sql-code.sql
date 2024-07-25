@@ -1,6 +1,15 @@
+-- DROP TYPE IF EXISTS public.account_type;
+
+CREATE TYPE public.account_type AS ENUM
+    ('Client', 'Employee', 'Admin');
+
+ALTER TYPE public.account_type
+    OWNER TO cse340_8aie_user;
+
 -- Create the account_type enum type
 CREATE TYPE public.account_type AS ENUM
     ('Client', 'Employee', 'Admin');
+
 
 -- Create the account table
 CREATE TABLE IF NOT EXISTS public.account

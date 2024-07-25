@@ -316,7 +316,7 @@ VALUES
 ('GM', 'Hummer', '2024', 'a huge interior', '/images/vehicles/gm_hummer.jpg', '/images/vehicles/gm_hummer_thumbnail.jpg', 60000, 5000, 'Black', (SELECT classification_id FROM public.classification WHERE classification_name = 'Sport'));
 
 -- Task 4 query
-UPDATE public.inventry
+UPDATE public.inventory
 SET inv_description = REPLACE(inv_description, 'small interiors', 'a huge interior')
 WHERE inv_make = 'GM' AND inv_model = 'Hummer';
 
